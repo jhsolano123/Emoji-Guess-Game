@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Emoji Guess</string>
+    <string name="title_game_room">Sala: %1$s</string>
+    <string name="label_timer_value">%1$ds</string>
+    <string name="label_hidden_emoji">Tu emoji:</string>
+    <string name="placeholder_hidden_emoji">?</string>
+    <string name="button_confirm_guess">Confirmar adivinanza</string>
+    <string name="status_waiting_full">Esperando tu turno…</string>
+    <string name="label_your_turn">¡Tu turno!</string>
+    <string name="chat_title">Chat global</string>
+    <string name="hint_message">Escribe un mensaje…</string>
+    <string name="button_send">Enviar</string>
+    <string name="empty_chat">Aún no hay mensajes</string>
+    <string name="you_label">Tú</string>
+    <string name="status_eliminated">Eliminado</string>
+    <string name="status_playing">En turno</string>
+    <string name="status_waiting">Esperando</string>
+    <string name="error_empty_message">Escribe un mensaje antes de enviarlo</string>
+    <string name="error_not_your_turn">Espera a tu turno para confirmar</string>
 </resources>
