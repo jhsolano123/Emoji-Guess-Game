@@ -5,36 +5,40 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-
+import com.example.emojiguess.ui.game.GameActivity
 
 data class Player(val id: Int, val name: String, val isHost: Boolean = false)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LobbyScreen(navController: NavController) {
-    // Simulación de estado del lobby
-    val roomCode = "ABCD"
-    val isHost = true // Simulación de que el usuario actual es el host
+fun LobbyScreen(
+    navController: NavController,
+    roomId: String,
+    playerName: String,
+    isHost: Boolean
+) {
     val players = remember {
         mutableStateListOf(
-            Player(1, "Jugador 1 (Host)", true),
+            Player(1, "$playerName (Host)", isHost),
             Player(2, "Jugador 2"),
             Player(3, "Jugador 3"),
             Player(4, "Jugador 4")
         )
     }
 
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Sala: $roomCode") }
+                title = { Text("Sala: $roomId") }
             )
         }
     ) { paddingValues ->
@@ -84,13 +88,10 @@ fun LobbyScreen(navController: NavController) {
             if (isHost) {
                 Button(
                     onClick = {
-                        // Lógica para iniciar la partida
-                        navController.navigate(Screen.Game.route)
-                    },
-                    enabled = players.size >= 2, // Mínimo 2 jugadores para empezar
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
+                        val playerId = "player1" // O tu lógica para asignar ID
+                        val intent = GameActivity.createIntent(context, roomId, playerId, playerName)
+                        context.startActivity(intent)
+                    }
                 ) {
                     Text("Iniciar Partida (${players.size}/4)")
                 }
@@ -124,7 +125,7 @@ fun LobbyScreen(navController: NavController) {
                         Button(
                             onClick = {
                                 showExitDialog = false
-                                navController.popBackStack(Screen.Welcome.route, inclusive = false)
+                                navController.popBackStack()
                             }
                         ) {
                             Text("Sí, Salir")

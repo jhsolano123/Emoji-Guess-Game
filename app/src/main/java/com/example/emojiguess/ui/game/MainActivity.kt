@@ -53,10 +53,16 @@ fun EmojiGuessApp() {
             JoinRoomScreen(navController)
         }
         composable(Screen.Lobby.route) {
-            LobbyScreen(navController)
-        }
-        composable(Screen.Game.route) {
-            GameScreen(navController)
+            // Pasa los datos necesarios a LobbyScreen
+            val roomId = "ABCD"        // Aquí puedes reemplazar con la lógica real
+            val playerName = "Jugador1" // Aquí también
+            val isHost = true           // Simulación de host
+            LobbyScreen(
+                navController = navController,
+                roomId = roomId,
+                playerName = playerName,
+                isHost = isHost
+            )
         }
         composable(Screen.Victory.route) {
             VictoryScreen(navController)

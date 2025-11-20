@@ -1,16 +1,20 @@
 package com.example.emojiguess
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.emojiguess.ui.game.GameActivity
 
 @Composable
 fun CreateRoomScreen(navController: NavController) {
     var playerName by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -37,9 +41,16 @@ fun CreateRoomScreen(navController: NavController) {
 
         Button(
             onClick = {
-                // Lógica para crear la sala y navegar al Lobby
                 if (playerName.isNotBlank()) {
-                    navController.navigate(Screen.Lobby.route)
+                    // Generar IDs de ejemplo
+                    val roomId = "room123" // Puedes generar dinámicamente o usar backend
+                    val playerId = "player1" // ID único del jugador
+
+                    // Abrir GameActivity
+                    val intent = GameActivity.createIntent(context, roomId, playerId, playerName)
+                    context.startActivity(intent)
+                } else {
+                    Toast.makeText(context, "Ingresa tu nombre", Toast.LENGTH_SHORT).show()
                 }
             },
             enabled = playerName.isNotBlank(),
